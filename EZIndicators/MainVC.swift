@@ -11,6 +11,19 @@ import UIKit
 
 class MainVC: UIViewController {
     
+    @IBOutlet weak var currentPriceLabel: UILabel!
+    
+    @IBOutlet weak var goldenCrossIndicator: UILabel!
+    
+    @IBOutlet weak var macdIndicator: UILabel!
+    
+    @IBOutlet weak var rsiIndicator: UILabel!
+    
+    
+    @IBAction func refreshButton(_ sender: Any) {
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
