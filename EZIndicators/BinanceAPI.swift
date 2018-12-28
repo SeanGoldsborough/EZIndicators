@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import QuartzCore
 //TODO: put funcs for API call to get data for each time period needed here
 
 //var parsedResult: AnyObject!
@@ -129,7 +130,7 @@ func getPublicUserDataUdacity(_ completionHandlerForUdacityGet: @escaping (_ res
                 } else {
                     print("No Udacity error!")
                     //print("Udacity results is: \(results)")
-                    print(result.indexPath?.row)
+                    //print(result.indexPath?.row)
                     print("No Udacity error!")
                 }
                 
@@ -167,10 +168,4 @@ func getPublicUserDataUdacity(_ completionHandlerForUdacityGet: @escaping (_ res
     }
 }
 
-getPublicUserDataUdacity { (results, error) in
-    coinDataArray = [results!]
-    
-    print("The self.coinDataArray count is: \(coinDataArray.count)")
-    print("The self.coinDataArray count is: \(CoinData.sharedInstance().openTime)")
-    print("The binance data array  count is: \(results)")
-}
+

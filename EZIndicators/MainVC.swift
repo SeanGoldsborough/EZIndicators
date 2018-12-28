@@ -39,6 +39,16 @@ class MainVC: UIViewController {
         
         print("\(start)")
         
+        
+        getPublicUserDataUdacity { (results, error) in
+            coinDataArray = [results!]
+            
+            print("The self.coinDataArray count is: \(coinDataArray.count)")
+            print("The self.coinDataArray count is: \(CoinData.sharedInstance().openTime)")
+            print("The binance data array  count is: \(results)")
+        }
+        
+        
         // Array of 200 Prices
         var pricesArray: [Double] = []
         
