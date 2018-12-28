@@ -114,6 +114,57 @@ class MainVC: UIViewController {
             self.goldenCrossIndicator.text! = "STOP"
         }
 
+        
+        /////// MACD
+        
+        func twentySixDayAvg() {
+            
+            let twentySixDayArray = randomArray.suffix(26)
+            print("twentySixDayArray is: \(twentySixDayArray)")
+            print("twentySixDayArray count is: \(twentySixDayArray.count)")
+            twentySixDayAverage = twentySixDayArray.reduce(0, { x, y in
+                x + y
+            }) / 26
+            print("twentySixDayAverage is: \(twentySixDayAverage)")
+        }
+        
+        twentySixDayAvg()
+        
+        func twelveDayAvg() {
+            
+            let twelveDayArray = randomArray.suffix(12)
+            print("twelveDayArray is: \(twelveDayArray)")
+            print("ttwelveDayArray count is: \(twelveDayArray.count)")
+            twelveDayAverage = twelveDayArray.reduce(0, { x, y in
+                x + y
+            }) / 12
+            print("twelveDayAverage is: \(twelveDayAverage)")
+        }
+        
+        twelveDayAvg()
+        // MACD execution
+        if twelveDayAverage > twentySixDayAverage {
+            print("UPTREND - BUY")
+            MACD = true
+            self.macdIndicator.text! = "GO"
+            self.macdIndicator.backgroundColor = UIColor.green
+        } else if twelveDayAverage < twentySixDayAverage {
+            print("DOWNTREND - SELL")
+            MACD = false
+            self.macdIndicator.text! = "STOP"
+            self.macdIndicator.backgroundColor = UIColor.red
+        }
+        
+                if MACD == true && goldenCross == true {
+                    print("BUYING NOW!")
+                } else if MACD == false && goldenCross == true || MACD == true && goldenCross == false {
+                    print("murky waters here")
+                } else {
+                    print("SELLING NOW!!!")
+                }
+        
+       
+        
         let end = CACurrentMediaTime()
         print("\(end)")
         print(end - start)
