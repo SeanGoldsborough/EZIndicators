@@ -155,14 +155,52 @@ class MainVC: UIViewController {
             self.macdIndicator.backgroundColor = UIColor.red
         }
         
-                if MACD == true && goldenCross == true {
-                    print("BUYING NOW!")
-                } else if MACD == false && goldenCross == true || MACD == true && goldenCross == false {
-                    print("murky waters here")
-                } else {
-                    print("SELLING NOW!!!")
-                }
+//                if MACD == true && goldenCross == true {
+//                    print("BUYING NOW!")
+//                } else if MACD == false && goldenCross == true || MACD == true && goldenCross == false {
+//                    print("murky waters here")
+//                } else {
+//                    print("SELLING NOW!!!")
+//                }
         
+        ///////RSI CALCULATIONS
+        //Oldest price is first in the array
+        //SharpCharts uses at least 250 data points prior to the starting date of any chart (assuming that much data exists) when calculating its RSI values. To duplicate its RSI number, you'll need to use at least that much data also.
+        //var lastFourteenClosingPrices = [44.34, 44.09, 44.15, 43.61, 44.33, 44.83, 45.10, 45.42, 45.84, 46.08, 45.89, 46.03, 45.61, 46.28]
+        //var lastFourteenClosingPrices = [46.1250, 47.1250, 46.4375, 46.9375, 44.9375, 44.2500, 44.6250, 45.7500, 47.8125, 47.5625, 47.00, 44.5625, 46.3125, 47.6875, 46.6875]
+        var lastFourteenClosingPrices = [0.05442, 0.057, 0.05808, 0.05783, 0.05019, 0.0513, 0.05156, 0.04868, 0.04701, 0.04581, 0.04669, 0.04632, 0.04488, 0.04284]
+        
+        
+        var arrayOfGains = [Double]()
+        var arrayOfLosses = [Double]()
+        
+        for i in 0 ..< lastFourteenClosingPrices.count - 1 {
+            var number = lastFourteenClosingPrices[i + 1] - lastFourteenClosingPrices[i]
+            print(number)
+            if number > 0 { arrayOfGains.append(number) } else { arrayOfLosses.append(number) }
+        }
+        print("array of gains is:\(arrayOfGains)")
+        print("array of losses is:\(arrayOfLosses)")
+        
+        let firstAvgGains = arrayOfGains.reduce(0, { x, y in x + y }) / 14
+        let firstAvgLosses = abs(arrayOfLosses.reduce(0, { x, y in x + y }) / 14)
+        
+        print("firstAvgGains is:\(firstAvgGains)")
+        print("firstAvgLosses is:\(firstAvgLosses)")
+        
+        //print(abs(firstAvgLosses))
+        
+        let firstRS = firstAvgGains / firstAvgLosses
+        print("firstRS is: \(firstRS)")
+        
+        let RSI = 100 - (100 / (1 + firstRS))
+        print("RSI is: \(RSI)")
+        
+        let smoothedRS = (((firstAvgGains * 13) + 0.00 ) / 14) / (((firstAvgLosses * 13) + 1.00 ) / 14)
+        print("smoothedRS is: \(smoothedRS)")
+        
+        let smoothedRSI = 100 - (100 / (1 + smoothedRS))
+        print("smoothedRSI is: \(smoothedRSI)")
        
         
         let end = CACurrentMediaTime()
