@@ -14,6 +14,8 @@
 		C6B9AF8621D6AD2C00526447 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6B9AF8421D6AD2C00526447 /* LaunchScreen.storyboard */; };
 		C6B9AF8E21D6B33D00526447 /* InfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B9AF8D21D6B33D00526447 /* InfoVC.swift */; };
 		C6B9AF9021D6B36500526447 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B9AF8F21D6B36500526447 /* MainVC.swift */; };
+		C6B9AF9221D6B68F00526447 /* BinanceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B9AF9121D6B68F00526447 /* BinanceAPI.swift */; };
+		C6B9AF9421D6B6A300526447 /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B9AF9321D6B6A300526447 /* CurrencyData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		C6B9AF8721D6AD2C00526447 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6B9AF8D21D6B33D00526447 /* InfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVC.swift; sourceTree = "<group>"; };
 		C6B9AF8F21D6B36500526447 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		C6B9AF9121D6B68F00526447 /* BinanceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceAPI.swift; sourceTree = "<group>"; };
+		C6B9AF9321D6B6A300526447 /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,8 @@
 				C6B9AF7B21D6AD2900526447 /* AppDelegate.swift */,
 				C6B9AF7D21D6AD2900526447 /* ViewController.swift */,
 				C6B9AF8F21D6B36500526447 /* MainVC.swift */,
+				C6B9AF9121D6B68F00526447 /* BinanceAPI.swift */,
+				C6B9AF9321D6B6A300526447 /* CurrencyData.swift */,
 				C6B9AF8D21D6B33D00526447 /* InfoVC.swift */,
 				C6B9AF7F21D6AD2900526447 /* Main.storyboard */,
 				C6B9AF8221D6AD2C00526447 /* Assets.xcassets */,
@@ -141,7 +147,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6B9AF9421D6B6A300526447 /* CurrencyData.swift in Sources */,
 				C6B9AF7E21D6AD2900526447 /* ViewController.swift in Sources */,
+				C6B9AF9221D6B68F00526447 /* BinanceAPI.swift in Sources */,
 				C6B9AF9021D6B36500526447 /* MainVC.swift in Sources */,
 				C6B9AF8E21D6B33D00526447 /* InfoVC.swift in Sources */,
 				C6B9AF7C21D6AD2900526447 /* AppDelegate.swift in Sources */,
