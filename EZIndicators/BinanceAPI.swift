@@ -13,8 +13,160 @@ import QuartzCore
 class BinanceAPI {
 
 //var parsedResult: AnyObject!
-var coinDataArray = [CoinData]()
+//var coinDataArray = [CoinData]()
+var coinDataArray = [AnyObject]()
+var coinPriceArray = [Double]()
+var oneCoinPrice = ""
 var session = URLSession.shared
+    
+    
+    func getOneCoinPrice() {
+        
+        let url = NSURL(string: "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT")
+        
+        let request = NSMutableURLRequest(url: url as! URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
+        
+        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            print("data from binance is: \(data)")
+            func sendError(_ error: Error?) {
+                print(error)
+                //completionHandlerForGet(nil, error)
+            }
+            
+            guard data != nil else {
+                sendError(error)
+                return
+            }
+            
+            guard let range = Range?(0..<data!.count) else {
+                sendError(error)
+                return
+            }
+            
+            let newData = data?.subdata(in: range) /* subset response data! */
+            var encodedData = String(data: newData!, encoding: .utf8)!
+            var encodedDataInt = Double(encodedData)
+            print("encoded data is: \(encodedData)")
+            print("encoded data as double is: \(encodedDataInt)")
+            print(newData)
+            
+            //    for item in encodedData {
+            //        coinDataArray.append(item)
+            //    }
+            //encodedData["price"]
+            
+            do{
+                //here dataResponse received from a network request
+                let jsonResponse = try JSONSerialization.jsonObject(with:
+                    data!, options: [])
+                //        print("JSON RESPOINS IS:")
+                //        print(jsonResponse) //Response result
+                
+                guard let jsonArray = jsonResponse as? [String: Any] else { return }
+                print("JSON ARRAY IS:")
+                print(jsonArray)
+                
+                guard let price = jsonArray["price"] as? String else { return }
+                print(price) // delectus aut autem
+                self.oneCoinPrice = price
+                print("label text is \(price)")
+                
+            } catch let parsingError {
+                print("Error", parsingError)
+            }
+            
+        }
+        task.resume()
+    }
+    
+    func getAllCoinPrices() {
+
+        var labelText = ""
+        //let url = NSURL(string: "https://api.binance.com/api/v1/klines?symbol=BTCUSDT&interval=1h&limit=3")
+        let url = NSURL(string: "https://api.binance.com/api/v1/trades?symbol=BTCUSDT&limit=200")
+        //let url = NSURL(string: "https://api.binance.com/api/v1/ticker/24hr?symbol=BTCUSDT")
+        
+        let request = NSMutableURLRequest(url: url as! URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
+        
+        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            print("data from binance is: \(data)")
+            func sendError(_ error: Error?) {
+                print(error)
+                //completionHandlerForGet(nil, error)
+            }
+            
+            guard data != nil else {
+                sendError(error)
+                return
+            }
+            
+            guard let range = Range?(0..<data!.count) else {
+                sendError(error)
+                return
+            }
+            
+            //    let newData = data?.subdata(in: range) /* subset response data! */
+            //    var encodedData = String(data: newData!, encoding: .utf8)!
+            //    var encodedDataInt = Double(encodedData)
+            //    print("encoded data is: \(encodedData)")
+            //    print("encoded data as double is: \(encodedDataInt)")
+            //    print(newData)
+            
+            //    for item in encodedData {
+            //        coinDataArray.append(item)
+            //    }
+            //encodedData["price"]
+            
+            do{
+                //here dataResponse received from a network request
+                let jsonResponse = try JSONSerialization.jsonObject(with:
+                    data!, options: .allowFragments) as AnyObject
+                print("JSON RESPONSE IS:")
+                print(jsonResponse) //Response result
+                
+                //        coinDataArray.append(jsonResponse)
+                //        print("coinDataArray is: \(coinDataArray[0])")
+                
+                //        var encodedData = String(data: data!, encoding: .utf8)!
+                //                print("stringy JSON RESPONSE IS:")
+                //                print(encodedData) //Response result
+                
+                //        for item in jsonResponse {
+                //            //coinDataArray.append(string)
+                //            var encodedData = String(data: item as! Data, encoding: .utf8)!
+                //        }
+                
+                //coinDataArray.append(jsonResponse)
+                //print("coinDataArray is: \(coinDataArray[0])")
+                
+                
+                
+                guard let jsonArray = jsonResponse as? [[String: Any]] else { return }
+                print("JSON ARRAY IS:")
+                print(jsonArray)
+                
+                for dic in jsonArray{
+                    guard let price = dic["price"] as? String else { return }
+                    print("price is: \(price)")
+                    self.coinPriceArray.append(Double(price) ?? 0.00)
+                    print(self.coinPriceArray)
+                }
+                
+                //        guard let price = jsonArray["price"] as? [String] else { return }
+                //        print(price) // delectus aut autem
+                //        labelText = price
+                //        print("label text is \(price)")
+                
+            } catch let parsingError {
+                print("Error", parsingError)
+            }
+            
+        }
+        task.resume()
+    }
+    
+    
+    
 //
 //    if let json = (try? JSONSerialization.jsonObject(with: newData!, options: JSONSerialization.ReadingOptions(rawValue: 0))) as? [[String : AnyObject]] {
 //    print(json.count) // Should be 2, based on your sample json above
@@ -123,12 +275,18 @@ func getCoinData(_ completionHandlerForGet: @escaping (_ result: CoinData?, _ er
         } else {
             
             if let result = results {
-                print("results is: \(results)")
+                print("results is: \(results!)")
+                
+                self.coinDataArray = [results] as [AnyObject]
+                print("coinArray is: \(self.coinDataArray)")
+                
                 if let udacityError = results!["error"] as? String {
+                    
                     print("Udacity error is: \(udacityError)")
                     print("Udacity error!")
                     
                     completionHandlerForGet(nil, udacityError)
+                    
                 } else {
                     print("No Udacity error!")
                     //print("Udacity results is: \(results)")
@@ -136,10 +294,13 @@ func getCoinData(_ completionHandlerForGet: @escaping (_ result: CoinData?, _ er
                     print("No Udacity error!")
                 }
                 
+//                var coin = self.coinDataArray.last
+//                coin.flatMap({ (coin) -> U? in
+//                    <#code#>
+//                })
                 
-                
-                //                guard let getResults = results![""] as? [[String:AnyObject]]else { return }
-                //                print("get results is: \(getResults)")
+                guard let getResults = self.coinDataArray as? [String:AnyObject] else { return }
+                    print("get results is: \(getResults)")
                 
                 //                    guard let firstNameResults = getResults["nickname"] as? String else {
                 //                        return
@@ -156,7 +317,7 @@ func getCoinData(_ completionHandlerForGet: @escaping (_ result: CoinData?, _ er
                 //                        return
                 //                    }
                 //                    UdacityPersonalData.sharedInstance().uniqueKey = keyResults
-                completionHandlerForGet(CoinData.sharedInstance(), nil)
+                completionHandlerForGet(nil, nil)
                 
                 let end = CACurrentMediaTime()
                 print("\(end)")
@@ -178,6 +339,9 @@ func getCoinData(_ completionHandlerForGet: @escaping (_ result: CoinData?, _ er
         }
         return Singleton.sharedInstance
     }
+    
+    
+
 
 }
 

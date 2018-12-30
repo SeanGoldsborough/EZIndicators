@@ -12,6 +12,10 @@ import QuartzCore
 
 class MainVC: UIViewController {
     
+    //var coinDataArray = [CoinData]()
+    
+    var coinDataArray: [CoinData] = CoinDataArray.sharedInstance.listOfCoinPrices
+    
     @IBOutlet weak var currentPriceLabel: UILabel!
     
     @IBOutlet weak var goldenCrossIndicator: UILabel!
@@ -22,12 +26,18 @@ class MainVC: UIViewController {
     
     
     @IBAction func refreshButton(_ sender: Any) {
+        print("coinDataArray is:")
+        print(self.coinDataArray)
+        DispatchQueue.main.async {
+            self.currentPriceLabel.text! = "\(BinanceAPI.sharedInstance().oneCoinPrice)"
+        }
         BinanceAPI.sharedInstance().getCoinData { (results, error) in
             //BinanceAPI.sharedInstance().coinDataArray = [results!]
+            self.coinDataArray = [results!]
             print("The BinanceAPI.sharedInstance().coinDataArray price is: \(BinanceAPI.sharedInstance().coinDataArray)")
-//            print("The self.coinDataArray count is: \(BinanceAPI.sharedInstance().coinDataArray.count)")
+            print("The self.coinDataArray count is: \(results?.c)")
 //            print("The self.coinDataArray count is: \(CoinData.sharedInstance().openTime)")
-//            print("The binance data array  count is: \(results)")
+            print("The binance data array  count is: \(results)")
         }
         
         
@@ -49,6 +59,11 @@ class MainVC: UIViewController {
         
         print("\(start)")
         
+        BinanceAPI.sharedInstance().getOneCoinPrice()
+        DispatchQueue.main.async {
+            self.currentPriceLabel.text! = "\(BinanceAPI.sharedInstance().oneCoinPrice)"
+        }
+        
         
         BinanceAPI.sharedInstance().getCoinData { (results, error) in
 //            coinDataArray = [results!]
@@ -58,7 +73,7 @@ class MainVC: UIViewController {
 //            print("The self.coinDataArray close price is: \(CoinData.sharedInstance().o)")
 //            print("The binance data array  count is: \(results)")
             DispatchQueue.main.async {
-                self.currentPriceLabel.text! = "\(BinanceAPI.sharedInstance().coinDataArray.last?.o!)"
+                //self.currentPriceLabel.text! = "\(BinanceAPI.sharedInstance().coinDataArray.last?.o!)"
             }
         }
         
