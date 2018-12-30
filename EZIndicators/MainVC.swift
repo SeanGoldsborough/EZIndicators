@@ -22,6 +22,16 @@ class MainVC: UIViewController {
     
     
     @IBAction func refreshButton(_ sender: Any) {
+        BinanceAPI.sharedInstance().getCoinData { (results, error) in
+            //BinanceAPI.sharedInstance().coinDataArray = [results!]
+            print("The BinanceAPI.sharedInstance().coinDataArray price is: \(BinanceAPI.sharedInstance().coinDataArray)")
+//            print("The self.coinDataArray count is: \(BinanceAPI.sharedInstance().coinDataArray.count)")
+//            print("The self.coinDataArray count is: \(CoinData.sharedInstance().openTime)")
+//            print("The binance data array  count is: \(results)")
+        }
+        
+        
+        
     }
     
     
@@ -40,12 +50,16 @@ class MainVC: UIViewController {
         print("\(start)")
         
         
-        getPublicUserDataUdacity { (results, error) in
-            coinDataArray = [results!]
-            
-            print("The self.coinDataArray count is: \(coinDataArray.count)")
-            print("The self.coinDataArray count is: \(CoinData.sharedInstance().openTime)")
-            print("The binance data array  count is: \(results)")
+        BinanceAPI.sharedInstance().getCoinData { (results, error) in
+//            coinDataArray = [results!]
+//
+//            print("The self.coinDataArray is: \(coinDataArray)")
+//            print("The self.coinDataArray count is: \(coinDataArray.count)")
+//            print("The self.coinDataArray close price is: \(CoinData.sharedInstance().o)")
+//            print("The binance data array  count is: \(results)")
+            DispatchQueue.main.async {
+                self.currentPriceLabel.text! = "\(BinanceAPI.sharedInstance().coinDataArray.last?.o!)"
+            }
         }
         
         

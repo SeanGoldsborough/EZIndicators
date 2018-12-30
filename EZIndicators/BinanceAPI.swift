@@ -10,6 +10,8 @@ import Foundation
 import QuartzCore
 //TODO: put funcs for API call to get data for each time period needed here
 
+class BinanceAPI {
+
 //var parsedResult: AnyObject!
 var coinDataArray = [CoinData]()
 var session = URLSession.shared
@@ -37,11 +39,11 @@ func convertDataWithCompletionHandler(_ data: Data, completionHandlerForConvertD
 }
 
 
-func taskForGETMethodUdacity(completionHandlerForUdacityGET: @escaping (_ result: AnyObject?, _ error: Error?) -> Void) -> URLSessionDataTask {
+func taskForGETMethod(completionHandlerForGet: @escaping (_ result: AnyObject?, _ error: Error?) -> Void) -> URLSessionDataTask {
     
     /* 1. Set the parameters */
     //var parametersWithApiKey = parameters
-    let url = NSURL(string: "https://api.binance.com/api/v1/klines?symbol=BNBBTC&interval=1h")
+    let url = NSURL(string: "https://api.binance.com/api/v1/klines?symbol=BTCUSDT&interval=1h")
     
     //let variant = URLPathVariants.UdacityUserID + APIClient.sharedInstance().uniqueID!
     
@@ -54,8 +56,8 @@ func taskForGETMethodUdacity(completionHandlerForUdacityGET: @escaping (_ result
         func sendError(_ error: Error?) {
             print(error)
             //let userInfo = [NSLocalizedDescriptionKey : error]
-            completionHandlerForUdacityGET(nil, error)
-            //completionHandlerForUdacityGET(nil, NSError(domain: "taskForGETMethodUdacity", code: 1, userInfo: userInfo))
+            completionHandlerForGet(nil, error)
+            //completionHandlerForGet(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
         }
         
         /* GUARD: Was there an error? */
@@ -96,7 +98,7 @@ func taskForGETMethodUdacity(completionHandlerForUdacityGET: @escaping (_ result
         }
         
         /* 5/6. Parse the data and use the data (happens in completion handler) */
-        convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForUdacityGET)
+        self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForGet)
     }
     
     /* 7. Start the request */
@@ -105,7 +107,7 @@ func taskForGETMethodUdacity(completionHandlerForUdacityGET: @escaping (_ result
     return task
 }
 
-func getPublicUserDataUdacity(_ completionHandlerForUdacityGet: @escaping (_ result: CoinData?, _ error: String?) -> Void) {
+func getCoinData(_ completionHandlerForGet: @escaping (_ result: CoinData?, _ error: String?) -> Void) {
     let start = CACurrentMediaTime()
     //1. Specify parameters, method (if has {key}), and HTTP body (if POST)
     //let parameters = [String:AnyObject]()
@@ -114,10 +116,10 @@ func getPublicUserDataUdacity(_ completionHandlerForUdacityGet: @escaping (_ res
     
     /* 2. Make the request */
     
-    let _ = taskForGETMethodUdacity() { (results, error) in
+    let _ = taskForGETMethod() { (results, error) in
         /* 3. Send the desired value(s) to completion handler */
         if let error = error {
-            completionHandlerForUdacityGet(nil, error.localizedDescription)
+            completionHandlerForGet(nil, error.localizedDescription)
         } else {
             
             if let result = results {
@@ -126,7 +128,7 @@ func getPublicUserDataUdacity(_ completionHandlerForUdacityGet: @escaping (_ res
                     print("Udacity error is: \(udacityError)")
                     print("Udacity error!")
                     
-                    completionHandlerForUdacityGet(nil, udacityError)
+                    completionHandlerForGet(nil, udacityError)
                 } else {
                     print("No Udacity error!")
                     //print("Udacity results is: \(results)")
@@ -154,7 +156,7 @@ func getPublicUserDataUdacity(_ completionHandlerForUdacityGet: @escaping (_ res
                 //                        return
                 //                    }
                 //                    UdacityPersonalData.sharedInstance().uniqueKey = keyResults
-                completionHandlerForUdacityGet(CoinData.sharedInstance(), nil)
+                completionHandlerForGet(CoinData.sharedInstance(), nil)
                 
                 let end = CACurrentMediaTime()
                 print("\(end)")
@@ -162,10 +164,21 @@ func getPublicUserDataUdacity(_ completionHandlerForUdacityGet: @escaping (_ res
                 print(end - start)
                 
             } else {
-                completionHandlerForUdacityGet(nil, error?.localizedDescription)
+                completionHandlerForGet(nil, error?.localizedDescription)
             }
         }
     }
+}
+
+    // MARK: Shared Instance
+    
+    class func sharedInstance() -> BinanceAPI {
+        struct Singleton {
+            static var sharedInstance = BinanceAPI()
+        }
+        return Singleton.sharedInstance
+    }
+
 }
 
 
