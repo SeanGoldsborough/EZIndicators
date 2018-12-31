@@ -39,6 +39,7 @@ class MainVC: UIViewController {
     
     
     @IBAction func refreshButton(_ sender: Any) {
+        self.coinPriceArray.removeAll()
         print("coinDataArray is:")
         print(self.coinPriceArray)
        // BinanceAPI.sharedInstance().getOneCoinPrice()
@@ -51,12 +52,21 @@ class MainVC: UIViewController {
                 self.currentPriceLabel.text! = "\(results!)"
             }
         }
-
-        twoHunAvg(array: coinPriceArray)
-        DispatchQueue.main.async {
-            self.currentPriceLabel.text! = ""
-            self.currentPriceLabel.text! = "\(BinanceAPI.sharedInstance().oneCoinPrice)"
+        
+        BinanceAPI.sharedInstance().getAllCoinPrices { (results, error) in
+            
+            self.coinPriceArray = results
+            print("coin array count is:")
+            print(self.coinPriceArray.count)
+            
+            self.twoHunAvg(array: self.coinPriceArray)
+            DispatchQueue.main.async {
+                self.currentPriceLabel.text! = ""
+                self.currentPriceLabel.text! = "\(BinanceAPI.sharedInstance().oneCoinPrice)"
+            }
         }
+
+        
     }
     
     
@@ -88,7 +98,7 @@ class MainVC: UIViewController {
 //            self.currentPriceLabel.text! = "\(BinanceAPI.sharedInstance().oneCoinPrice)"
 //        }
         
-        BinanceAPI.sharedInstance().getAllCoinPrices()
+        //BinanceAPI.sharedInstance().getAllCoinPrices()
         twoHunAvg(array: coinPriceArray)
         
 
