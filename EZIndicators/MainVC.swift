@@ -158,19 +158,20 @@ class MainVC: UIViewController {
     }
 
 //    MACD execution
+    func compareTwelveTwentySix() {
     
-//    if twelveDayAverage > twentySixDayAverage {
-//    print("UPTREND - BUY")
-//    MACD = true
-//    self.macdIndicator.text! = "GO"
-//    self.macdIndicator.backgroundColor = UIColor.green
-//    } else if twelveDayAverage < twentySixDayAverage {
-//    print("DOWNTREND - SELL")
-//    MACD = false
-//    self.macdIndicator.text! = "STOP"
-//    self.macdIndicator.backgroundColor = UIColor.red
-//    }
-
+        if twelveDayAverage > twentySixDayAverage {
+            print("UPTREND - BUY")
+            MACD = true
+            self.macdIndicator.text! = "GO"
+            self.macdIndicator.backgroundColor = UIColor.green
+        } else if twelveDayAverage < twentySixDayAverage {
+            print("DOWNTREND - SELL")
+            MACD = false
+            self.macdIndicator.text! = "STOP"
+            self.macdIndicator.backgroundColor = UIColor.red
+        }
+    }
     
     ///////RSI CALCULATIONS
     //Oldest price is first in the array
