@@ -12,8 +12,6 @@ import QuartzCore
 
 class MainVC: UIViewController {
     
-    //var coinDataArray = [CoinData]()
-    
     var oneCoinPrice = ""
     
     var coinPriceArray = BinanceAPI.sharedInstance().coinPriceArray
@@ -25,7 +23,7 @@ class MainVC: UIViewController {
     var fiftyDayAverage: Double = 0.0
     var twentySixDayAverage: Double = 0.0
     var twelveDayAverage: Double = 0.0
-    
+
     var goldenCross: Bool = false
     var MACD: Bool = false
     
@@ -42,13 +40,11 @@ class MainVC: UIViewController {
         self.coinPriceArray.removeAll()
         print("coinDataArray is:")
         print(self.coinPriceArray)
-       // BinanceAPI.sharedInstance().getOneCoinPrice()
         
         BinanceAPI.sharedInstance().getCoinPrice { (results, error) in
             
             self.oneCoinPrice = results!
             DispatchQueue.main.async {
-                //self.currentPriceLabel.text! = "\(BinanceAPI.sharedInstance().oneCoinPrice)"
                 self.currentPriceLabel.text! = "\(results!)"
             }
         }
@@ -65,67 +61,33 @@ class MainVC: UIViewController {
                 self.currentPriceLabel.text! = "\(BinanceAPI.sharedInstance().oneCoinPrice)"
             }
         }
-
-        
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        func executionTimeInterval(block: () -> ()) -> CFTimeInterval {
-            let start = CACurrentMediaTime()
-            block();
-            let end = CACurrentMediaTime()
-            return end - start
-        }
-        let start = CACurrentMediaTime()
-        
-        print("\(start)")
-        
-        //BinanceAPI.sharedInstance().getOneCoinPrice()
         BinanceAPI.sharedInstance().getCoinPrice { (results, error) in
             
             self.oneCoinPrice = results!
             DispatchQueue.main.async {
-                //self.currentPriceLabel.text! = "\(BinanceAPI.sharedInstance().oneCoinPrice)"
                 self.currentPriceLabel.text! = "\(results!)"
             }
         }
-        
-//        DispatchQueue.main.async {
-//            self.currentPriceLabel.text! = "\(BinanceAPI.sharedInstance().oneCoinPrice)"
-//        }
-        
-        //BinanceAPI.sharedInstance().getAllCoinPrices()
-        twoHunAvg(array: coinPriceArray)
-        
 
-        
+        twoHunAvg(array: coinPriceArray)
 }
 
+    
     // Array of 200 Prices
-    
-    
+
     func createRandomNumber() {
         let randomNumber = Double(arc4random_uniform(20))
         
         print(randomNumber)
-        
     }
     
-    //var randomArray = (1...200).map{_ in Double(arc4random_uniform(10))}
-    
-    //        let numberArray = [1.0, 2.0, 3.0, 4.0]
-    //        let numberReduce = numberArray.reduce(0.0, { x, y in x + y })
-    //        print("numberReduce is: \(numberReduce)")
-    //
-    //        print("numberReduce Avg is: \(numberReduce / Double(numberArray.count))")
-    
-    
-    
-    
+ 
     // Calculate 200 day average - func should take argument of array and return a double
     func twoHunAvg(array: [Double]) -> Double {
         
@@ -263,11 +225,6 @@ class MainVC: UIViewController {
 //
 //    let smoothedRSI = 100 - (100 / (1 + smoothedRS))
 //    print("smoothedRSI is: \(smoothedRSI)")
-//
-//
-//    let end = CACurrentMediaTime()
-//    print("\(end)")
-//    print(end - start)
 //}
 }
 
