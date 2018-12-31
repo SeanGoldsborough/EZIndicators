@@ -111,23 +111,23 @@ class MainVC: UIViewController {
     }
 
    
-    
-    if fiftyDayAverage > twoHundredDayAverage {
-        print("Golden Cross")
-        goldenCross = true
-    
-        DispatchQueue.main.async {
-            self.goldenCrossIndicator.backgroundColor = UIColor.green
-            self.goldenCrossIndicator.text! = "GO"
-        }
-    } else if fiftyDayAverage < twoHundredDayAverage {
-        print("Death Cross")
-        DispatchQueue.main.async {
-            self.goldenCrossIndicator.backgroundColor = UIColor.red
-            self.goldenCrossIndicator.text! = "STOP"
+    func compareFiftyAndTwoHundred() {
+        if fiftyDayAverage > twoHundredDayAverage {
+            print("Golden Cross")
+            goldenCross = true
+        
+            DispatchQueue.main.async {
+                self.goldenCrossIndicator.backgroundColor = UIColor.green
+                self.goldenCrossIndicator.text! = "GO"
+            }
+        } else if fiftyDayAverage < twoHundredDayAverage {
+            print("Death Cross")
+            DispatchQueue.main.async {
+                self.goldenCrossIndicator.backgroundColor = UIColor.red
+                self.goldenCrossIndicator.text! = "STOP"
+            }
         }
     }
-    
     
     /////// MACD
     
