@@ -16,8 +16,6 @@ class MainVC: UIViewController {
     
     var coinPriceArray = BinanceAPI.sharedInstance().coinPriceArray
     
-    var coinDataArray: [CoinData] = CoinDataArray.sharedInstance.listOfCoinPrices
-    
     // Init dayAvg Variable
     var twoHundredDayAverage: Double = 0.0
     var fiftyDayAverage: Double = 0.0
