@@ -33,7 +33,6 @@ class MainVC: UIViewController {
     
     @IBOutlet weak var rsiIndicator: UILabel!
     
-    
     @IBAction func refreshButton(_ sender: Any) {
         self.coinPriceArray.removeAll()
         print("coinDataArray is:")
@@ -61,7 +60,6 @@ class MainVC: UIViewController {
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -75,7 +73,6 @@ class MainVC: UIViewController {
 
         twoHunAvg(array: coinPriceArray)
 }
-
     
     // Array of 200 Prices
 
@@ -84,7 +81,6 @@ class MainVC: UIViewController {
         
         print(randomNumber)
     }
-    
  
     // Calculate 200 day average - func should take argument of array and return a double
     func twoHunAvg(array: [Double]) -> Double {
@@ -99,18 +95,7 @@ class MainVC: UIViewController {
         
         return twoHundredDayAverage
     }
-    
-//    twoHunAvg(array: coinPriceArray)
-    
-    
-    //Remove old price and add new price to array to get average
-    //        let newPrice = 9.0
-    //        randomArray.remove(at: 0)
-    //        randomArray.append(newPrice)
-    //
-    //        print(randomArray)
-    //        twoHunAvg()
-    //        print("NEW twoHundredDayAverage is: \(twoHundredDayAverage)")
+
     
     func fiftyDayAvg() {
         
