@@ -56,6 +56,7 @@ class MainVC: UIViewController {
             self.fiftyDayAvg()
             self.twelveDayAvg()
             self.twentySixDayAvg()
+            
             DispatchQueue.main.async {
                 self.currentPriceLabel.text! = ""
                 self.currentPriceLabel.text! = "\(BinanceAPI.sharedInstance().oneCoinPrice)"
@@ -84,7 +85,6 @@ class MainVC: UIViewController {
 
     func createRandomNumber() {
         let randomNumber = Double(arc4random_uniform(20))
-        
         print(randomNumber)
     }
  
@@ -98,7 +98,6 @@ class MainVC: UIViewController {
             x + y
         }) / 200
         print("twoHundredDayAverage is: \(twoHundredDayAverage)")
-        
         return twoHundredDayAverage
     }
     
@@ -179,9 +178,7 @@ class MainVC: UIViewController {
     //Oldest price is first in the array
     //SharpCharts uses at least 250 data points prior to the starting date of any chart (assuming that much data exists) when calculating its RSI values. To duplicate its RSI number, you'll need to use at least that much data also.
     
-    var lastFourteenClosingPrices = [0.05442, 0.057, 0.05808, 0.05783, 0.05019, 0.0513, 0.05156, 0.04868, 0.04701, 0.04581, 0.04669, 0.04632, 0.04488, 0.04284]
-    
-    
+    var lastFourteenClosingPrices = [0.05442, 0.057, 0.05808, 0.05783, 0.05019, 0.0513, 0.05156, 0.04868, 0.04701, 0.04581, 0.04669, 0.04632, 0.04488, 0.04284]    
 //    var arrayOfGains = [Double]()
 //    var arrayOfLosses = [Double]()
 //
