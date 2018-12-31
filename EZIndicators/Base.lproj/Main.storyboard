@@ -254,7 +254,7 @@ Traditional interpretation and usage of the RSI is that values of 70 or above in
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ngz-2v-crr" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xYu-mG-q3E">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="xYu-mG-q3E">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
