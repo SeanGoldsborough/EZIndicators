@@ -52,7 +52,7 @@ class MainVC: UIViewController {
             print("coin array count is:")
             print(self.coinPriceArray.count)
             
-            self.twoHunAvg(array: self.coinPriceArray)
+            self.twoHunAvg()
             self.fiftyDayAvg()
             self.twelveDayAvg()
             self.twentySixDayAvg()
@@ -74,11 +74,13 @@ class MainVC: UIViewController {
                 self.currentPriceLabel.text! = "\(results!)"
             }
         }
+        
+        BinanceAPI.sharedInstance().getAllCoinPrices { (results, error) in
+            self.compareFiftyAndTwoHundred()
+            self.compareTwelveTwentySix()
+        }
 
-        twoHunAvg(array: coinPriceArray)
-        fiftyDayAvg()
-        twelveDayAvg()
-        twentySixDayAvg()
+        
 }
     
     // Array of 200 Prices
@@ -89,16 +91,14 @@ class MainVC: UIViewController {
     }
  
     // Calculate 200 day average - func should take argument of array and return a double
-    func twoHunAvg(array: [Double]) -> Double {
+    func twoHunAvg() {
+        print(coinPriceArray)
         
-        var randomArray = coinPriceArray
-        print(randomArray)
-        
-        twoHundredDayAverage = randomArray.reduce(0, { x, y in
+        twoHundredDayAverage = coinPriceArray.reduce(0, { x, y in
             x + y
         }) / 200
         print("twoHundredDayAverage is: \(twoHundredDayAverage)")
-        return twoHundredDayAverage
+        //return twoHundredDayAverage
     }
     
     func fiftyDayAvg() {
@@ -113,6 +113,9 @@ class MainVC: UIViewController {
     }
    
     func compareFiftyAndTwoHundred() {
+        fiftyDayAvg()
+        twoHunAvg()
+        
         if fiftyDayAverage > twoHundredDayAverage {
             print("Golden Cross")
             goldenCross = true
@@ -156,6 +159,9 @@ class MainVC: UIViewController {
 
 //    MACD execution
     func compareTwelveTwentySix() {
+    
+        self.twelveDayAvg()
+        self.twentySixDayAvg()
     
         if twelveDayAverage > twentySixDayAverage {
             print("UPTREND - BUY")
