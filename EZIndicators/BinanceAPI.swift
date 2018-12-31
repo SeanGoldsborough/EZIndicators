@@ -44,14 +44,11 @@ var session = URLSession.shared
             func sendError(_ error: Error?) {
                 print(error)
   
-                completionHandlerForGet(nil, error)
-                
+                completionHandlerForGet(nil, error)                
             }
-            
-            /* GUARD: Was there an error? */
+
             guard data != nil else {
                 sendError(error)
-                //sendError((error?.localizedDescription)!)
                 return
             }
             
@@ -71,19 +68,13 @@ var session = URLSession.shared
                 sendError(error)
                 return
             }
-            
-           
             self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForGet)
         }
-        
-       
         task.resume()
-        
         return task
     }
     
     func getAllCoinPrices(_ completionHandlerForGet: @escaping (_ result: [Double], _ error: String?) -> Void) {
-        let start = CACurrentMediaTime()
         
         let _ = taskForGETAllPricesMethod() { (results, error) in
            
@@ -103,7 +94,6 @@ var session = URLSession.shared
                         self.coinPriceArray.append(Double(price) ?? 0.00)
                         print(self.coinPriceArray)
                     }
-                    
                     
                     if let udacityError = results!["error"] as? String {
                         
@@ -165,7 +155,6 @@ func taskForGETMethod(completionHandlerForGet: @escaping (_ result: AnyObject?, 
 }
     
     func getCoinPrice(_ completionHandlerForGet: @escaping (_ result: String?, _ error: String?) -> Void) {
-        let start = CACurrentMediaTime()
         
         let _ = taskForGETMethod() { (results, error) in
             if let error = error {
@@ -202,8 +191,6 @@ func taskForGETMethod(completionHandlerForGet: @escaping (_ result: AnyObject?, 
         }
     }
 
-
-
     // MARK: Shared Instance
     
     class func sharedInstance() -> BinanceAPI {
@@ -212,10 +199,4 @@ func taskForGETMethod(completionHandlerForGet: @escaping (_ result: AnyObject?, 
         }
         return Singleton.sharedInstance
     }
-    
-    
-
-
 }
-
-
