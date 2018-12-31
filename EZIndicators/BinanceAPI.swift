@@ -75,7 +75,7 @@ var session = URLSession.shared
     }
     
     func getAllCoinPrices(_ completionHandlerForGet: @escaping (_ result: [Double], _ error: String?) -> Void) {
-        
+        self.coinPriceArray.removeAll()
         let _ = taskForGETAllPricesMethod() { (results, error) in
            
             if let error = error {
