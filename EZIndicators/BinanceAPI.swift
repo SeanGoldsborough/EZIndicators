@@ -8,12 +8,9 @@
 
 import Foundation
 import QuartzCore
-//TODO: put funcs for API call to get data for each time period needed here
 
 class BinanceAPI {
 
-//var parsedResult: AnyObject!
-//var coinDataArray = [CoinData]()
 var coinDataArray = [AnyObject]()
 var coinPriceArray = [Double]()
 var oneCoinPrice = ""
@@ -22,20 +19,18 @@ var session = URLSession.shared
     func convertDataWithCompletionHandler(_ data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: Error?) -> Void) {
         
         var parsedResult: AnyObject! = nil
+        
         do {
             parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
-            //parsedResult = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0)) as? [[String : AnyObject]] as AnyObject
             print("parsed result is:")
             print(parsedResult.count)
         } catch {
             let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
-            //completionHandlerForConvertData(nil, NSError(domain: "convertDataWithCompletionHandler", code: 1, userInfo: userInfo))
+        
             completionHandlerForConvertData(nil, error)
             print("The error on JSON func is: '\(error)'")
         }
-        
         completionHandlerForConvertData(parsedResult, nil)
-        
     }
     
     func taskForGETAllPricesMethod(completionHandlerForGet: @escaping (_ result: AnyObject?, _ error: Error?) -> Void) -> URLSessionDataTask {
@@ -119,15 +114,9 @@ var session = URLSession.shared
                         
                     } else {
                         print("No Udacity error!")
-                        
                     }
                     
                     completionHandlerForGet(self.coinPriceArray, nil)
-                    
-                    let end = CACurrentMediaTime()
-                    print("\(end)")
-                    print("time to make API Call is:")
-                    print(end - start)
                     
                 } else {
                     completionHandlerForGet([], error?.localizedDescription)
@@ -135,9 +124,6 @@ var session = URLSession.shared
             }
         }
     }
-    
-    
-
 
 
 func taskForGETMethod(completionHandlerForGet: @escaping (_ result: AnyObject?, _ error: Error?) -> Void) -> URLSessionDataTask {
@@ -193,28 +179,21 @@ func taskForGETMethod(completionHandlerForGet: @escaping (_ result: AnyObject?, 
                     print(myResult)
                     
                     guard let price = myResult["price"] as? String else { return }
-                    print(price) 
+                    print(price)
                     self.oneCoinPrice = price
                     print("label text is \(price)")
                     
                     if let udacityError = results!["error"] as? String {
-                        
+                
                         print("Udacity error is: \(udacityError)")
                         print("Udacity error!")
-                        
                         completionHandlerForGet(nil, udacityError)
                         
                     } else {
                         print("No Udacity error!")
-                        
                     }
                     
                     completionHandlerForGet(price, nil)
-                    
-                    let end = CACurrentMediaTime()
-                    print("\(end)")
-                    print("time to make API Call is:")
-                    print(end - start)
                     
                 } else {
                     completionHandlerForGet(nil, error?.localizedDescription)
