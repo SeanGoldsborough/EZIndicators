@@ -137,6 +137,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="I7B-5e-DOY">
                         <barButtonItem key="rightBarButtonItem" title="Info" style="plain" id="Csb-j0-Km2">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="rJH-fE-IkO" kind="push" id="0Wf-PY-Pz6"/>
                             </connections>
@@ -257,6 +258,7 @@ Traditional interpretation and usage of the RSI is that values of 70 or above in
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="xYu-mG-q3E">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
