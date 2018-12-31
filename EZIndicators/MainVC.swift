@@ -173,10 +173,5 @@ class MainVC: UIViewController {
             }
         }
     }
-    
-    ///////RSI CALCULATIONS
-    //Oldest price is first in the array
-    //SharpCharts uses at least 250 data points prior to the starting date of any chart (assuming that much data exists) when calculating its RSI values. To duplicate its RSI number, you'll need to use at least that much data also.
-  
 }
 
