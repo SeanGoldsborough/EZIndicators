@@ -163,13 +163,17 @@ class MainVC: UIViewController {
         if twelveDayAverage > twentySixDayAverage {
             print("UPTREND - BUY")
             MACD = true
-            self.macdIndicator.text! = "GO"
-            self.macdIndicator.backgroundColor = UIColor.green
+            DispatchQueue.main.async {
+                self.macdIndicator.text! = "GO"
+                self.macdIndicator.backgroundColor = UIColor.green
+            }
         } else if twelveDayAverage < twentySixDayAverage {
             print("DOWNTREND - SELL")
             MACD = false
-            self.macdIndicator.text! = "STOP"
-            self.macdIndicator.backgroundColor = UIColor.red
+            DispatchQueue.main.async {
+                self.macdIndicator.text! = "STOP"
+                self.macdIndicator.backgroundColor = UIColor.red
+            }
         }
     }
     
