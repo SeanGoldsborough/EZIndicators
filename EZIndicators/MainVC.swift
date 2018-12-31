@@ -47,15 +47,13 @@ class MainVC: UIViewController {
         }
         
         BinanceAPI.sharedInstance().getAllCoinPrices { (results, error) in
-            
+            self.clearArray()
             self.coinPriceArray = results
             print("coin array count is:")
             print(self.coinPriceArray.count)
             
-            self.twoHunAvg()
-            self.fiftyDayAvg()
-            self.twelveDayAvg()
-            self.twentySixDayAvg()
+            self.compareFiftyAndTwoHundred()
+            self.compareTwelveTwentySix()
             
             DispatchQueue.main.async {
                 self.currentPriceLabel.text! = ""
@@ -82,6 +80,12 @@ class MainVC: UIViewController {
 
         
 }
+    
+    func clearArray() {
+        DispatchQueue.main.async {
+            self.coinPriceArray.removeAll()
+        }
+    }
     
     // Array of 200 Prices
 
@@ -113,6 +117,8 @@ class MainVC: UIViewController {
     }
    
     func compareFiftyAndTwoHundred() {
+        self.clearArray()
+        
         fiftyDayAvg()
         twoHunAvg()
         
@@ -159,6 +165,7 @@ class MainVC: UIViewController {
 
 //    MACD execution
     func compareTwelveTwentySix() {
+        self.clearArray()
     
         self.twelveDayAvg()
         self.twentySixDayAvg()
