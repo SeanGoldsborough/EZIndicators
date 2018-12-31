@@ -179,36 +179,5 @@ class MainVC: UIViewController {
     //SharpCharts uses at least 250 data points prior to the starting date of any chart (assuming that much data exists) when calculating its RSI values. To duplicate its RSI number, you'll need to use at least that much data also.
     
     var lastFourteenClosingPrices = [0.05442, 0.057, 0.05808, 0.05783, 0.05019, 0.0513, 0.05156, 0.04868, 0.04701, 0.04581, 0.04669, 0.04632, 0.04488, 0.04284]    
-//    var arrayOfGains = [Double]()
-//    var arrayOfLosses = [Double]()
-//
-//    for i in 0 ..< lastFourteenClosingPrices.count - 1 {
-//    var number = lastFourteenClosingPrices[i + 1] - lastFourteenClosingPrices[i]
-//    print(number)
-//    if number > 0 { arrayOfGains.append(number) } else { arrayOfLosses.append(number) }
-//    }
-//    print("array of gains is:\(arrayOfGains)")
-//    print("array of losses is:\(arrayOfLosses)")
-//
-//    let firstAvgGains = arrayOfGains.reduce(0, { x, y in x + y }) / 14
-//    let firstAvgLosses = abs(arrayOfLosses.reduce(0, { x, y in x + y }) / 14)
-//
-//    print("firstAvgGains is:\(firstAvgGains)")
-//    print("firstAvgLosses is:\(firstAvgLosses)")
-//
-//    //print(abs(firstAvgLosses))
-//
-//    let firstRS = firstAvgGains / firstAvgLosses
-//    print("firstRS is: \(firstRS)")
-//
-//    let RSI = 100 - (100 / (1 + firstRS))
-//    print("RSI is: \(RSI)")
-//
-//    let smoothedRS = (((firstAvgGains * 13) + 0.00 ) / 14) / (((firstAvgLosses * 13) + 1.00 ) / 14)
-//    print("smoothedRS is: \(smoothedRS)")
-//
-//    let smoothedRSI = 100 - (100 / (1 + smoothedRS))
-//    print("smoothedRSI is: \(smoothedRSI)")
-//}
 }
 
