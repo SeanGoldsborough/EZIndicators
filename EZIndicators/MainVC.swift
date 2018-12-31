@@ -55,6 +55,7 @@ class MainVC: UIViewController {
             self.twoHunAvg(array: self.coinPriceArray)
             self.fiftyDayAvg()
             self.twelveDayAvg()
+            self.twentySixDayAvg()
             DispatchQueue.main.async {
                 self.currentPriceLabel.text! = ""
                 self.currentPriceLabel.text! = "\(BinanceAPI.sharedInstance().oneCoinPrice)"
@@ -76,6 +77,7 @@ class MainVC: UIViewController {
         twoHunAvg(array: coinPriceArray)
         fiftyDayAvg()
         twelveDayAvg()
+        twentySixDayAvg()
 }
     
     // Array of 200 Prices
@@ -141,8 +143,6 @@ class MainVC: UIViewController {
         }) / 26
         print("twentySixDayAverage is: \(twentySixDayAverage)")
     }
-    
-    //twentySixDayAvg()
     
     func twelveDayAvg() {
         
