@@ -142,68 +142,39 @@ var session = URLSession.shared
 
 func taskForGETMethod(completionHandlerForGet: @escaping (_ result: AnyObject?, _ error: Error?) -> Void) -> URLSessionDataTask {
     
-    /* 1. Set the parameters */
-    //var parametersWithApiKey = parameters
     let url = NSURL(string: "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT")
-
-    
-    /* 2/3. Build the URL, Configure the request */
     let request = NSMutableURLRequest(url: url as! URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
-    
-    /* 4. Make the request */
     let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
         print("single coin price data from binance is: \(data)")
         func sendError(_ error: Error?) {
             print(error)
-            //let userInfo = [NSLocalizedDescriptionKey : error]
             completionHandlerForGet(nil, error)
-            //completionHandlerForGet(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
         }
-        
-        /* GUARD: Was there an error? */
+
         guard data != nil else {
             sendError(error)
-            //sendError((error?.localizedDescription)!)
-            //sendError("No data was returned by the request"
             return
         }
         
         guard let range = Range?(0..<data!.count) else {
             sendError(error)
-            //sendError((error?.localizedDescription)!)
-            //sendError("ERROR ON RANGE/DATA!")
             return
         }
         
         let newData = data?.subdata(in: range) /* subset response data! */
-//        var encodedData = String(data: newData!, encoding: .utf8)!
-//        var encodedDataInt = Double(encodedData)
-//        print("encoded data is: \(encodedData)")
-//        print("encoded data as double is: \(encodedDataInt)")
-        
-        /* GUARD: Did we get a successful 2XX response? */
+
         guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
             sendError(error)
-            //sendError((error?.localizedDescription)!)
-            //sendError("There was an error with your request")
             return
         }
-        
-        /* GUARD: Was there any data returned? */
+
         guard let data = newData else {
             sendError(error)
-            //sendError((error?.localizedDescription)!)
-            //sendError("No data was returned by the request")
             return
         }
-        
-        /* 5/6. Parse the data and use the data (happens in completion handler) */
         self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForGet)
     }
-    
-    /* 7. Start the request */
     task.resume()
-    
     return task
 }
     
@@ -211,7 +182,6 @@ func taskForGETMethod(completionHandlerForGet: @escaping (_ result: AnyObject?, 
         let start = CACurrentMediaTime()
         
         let _ = taskForGETMethod() { (results, error) in
-            /* 3. Send the desired value(s) to completion handler */
             if let error = error {
                 completionHandlerForGet(nil, error.localizedDescription)
             } else {
@@ -223,7 +193,7 @@ func taskForGETMethod(completionHandlerForGet: @escaping (_ result: AnyObject?, 
                     print(myResult)
                     
                     guard let price = myResult["price"] as? String else { return }
-                    print(price) // delectus aut autem
+                    print(price) 
                     self.oneCoinPrice = price
                     print("label text is \(price)")
                     
