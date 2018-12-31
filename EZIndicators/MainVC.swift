@@ -156,9 +156,9 @@ class MainVC: UIViewController {
         }) / 12
         print("twelveDayAverage is: \(twelveDayAverage)")
     }
+
+//    MACD execution
     
-//    twelveDayAvg()
-    // MACD execution
 //    if twelveDayAverage > twentySixDayAverage {
 //    print("UPTREND - BUY")
 //    MACD = true
@@ -170,14 +170,7 @@ class MainVC: UIViewController {
 //    self.macdIndicator.text! = "STOP"
 //    self.macdIndicator.backgroundColor = UIColor.red
 //    }
-    
-    //                if MACD == true && goldenCross == true {
-    //                    print("BUYING NOW!")
-    //                } else if MACD == false && goldenCross == true || MACD == true && goldenCross == false {
-    //                    print("murky waters here")
-    //                } else {
-    //                    print("SELLING NOW!!!")
-    //                }
+
     
     ///////RSI CALCULATIONS
     //Oldest price is first in the array
