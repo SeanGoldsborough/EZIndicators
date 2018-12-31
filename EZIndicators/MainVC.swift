@@ -53,6 +53,7 @@ class MainVC: UIViewController {
             print(self.coinPriceArray.count)
             
             self.twoHunAvg(array: self.coinPriceArray)
+            self.fiftyDayAvg()
             DispatchQueue.main.async {
                 self.currentPriceLabel.text! = ""
                 self.currentPriceLabel.text! = "\(BinanceAPI.sharedInstance().oneCoinPrice)"
@@ -72,6 +73,7 @@ class MainVC: UIViewController {
         }
 
         twoHunAvg(array: coinPriceArray)
+        fiftyDayAvg()
 }
     
     // Array of 200 Prices
@@ -107,8 +109,7 @@ class MainVC: UIViewController {
         }) / 50
         print("fiftyDayAverage is: \(fiftyDayAverage)")
     }
-    
-    //fiftyDayAvg()
+
     
 //    if fiftyDayAverage > twoHundredDayAverage {
 //    print("Golden Cross")
